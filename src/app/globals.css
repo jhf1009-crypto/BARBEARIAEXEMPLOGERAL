@@ -278,6 +278,10 @@ svg {
   position: absolute;
   inset: 0;
 }
+main > .section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
 .hero-photo picture,
 .hero-photo img {
   height: 100%;

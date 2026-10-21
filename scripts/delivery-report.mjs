@@ -2,6 +2,12 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const lh = JSON.parse(readFileSync('output/lighthouse-final.summary.json', 'utf8'));
 const tests = JSON.parse(readFileSync('output/e2e-results.json', 'utf8'));
 const audit = JSON.parse(readFileSync('output/dependency-audit-final.json', 'utf8'));
+const offline = JSON.parse(readFileSync('output/offline-results.json', 'utf8'));
+const retry = JSON.parse(readFileSync('output/retry-result.json', 'utf8'));
+const rawLighthouse = JSON.parse(readFileSync('output/lighthouse-final.report.json', 'utf8'));
+const scriptBytes = rawLighthouse.audits['network-requests'].details.items
+  .filter((r) => r.resourceType === 'Script')
+  .reduce((sum, r) => sum + r.transferSize, 0);
 const counts = JSON.parse(readFileSync('output/verification-summary.json', 'utf8')).counts;
 const report = `# Relatório de entrega — Barbearia Geral
 
@@ -42,7 +48,11 @@ Instaladas: security-threat-model, playwright-interactive e vercel-deploy. Já d
 
 - LCP: ${lh.metrics['largest-contentful-paint'].display}; CLS: ${lh.metrics['cumulative-layout-shift'].display}; TBT: ${lh.metrics['total-blocking-time'].display}.
 - INP exige dados reais de uso; não é certificado por este teste de laboratório.
-- Playwright: ${tests.stats.expected} testes aprovados, ${tests.stats.unexpected} falhas, ${tests.stats.skipped} ignorados. Viewports: 360×640, 390×844, 768×1024 e 1440×900.
+- JavaScript inicial transferido (inclui cabeçalhos): ${(scriptBytes / 1024).toFixed(1)} KiB. A meta aproximada de 120 KB ainda não foi atingida.
+- A meta Performance ≥95 e LCP <2s permanece pendente. Os demais três índices atingiram 100. Portanto, esta entrega não deve ser tratada como aprovação integral de todos os critérios de produção do briefing.
+- Playwright local: ${tests.stats.expected} testes aprovados na execução completa; ${tests.stats.unexpected} caso interrompido por timeout após um intervalo de 44 minutos do computador. Repetição isolada do fluxo desktop: ${retry.passed} aprovado em ${retry.durationSeconds}s, ${retry.failed} falhas, registrada em output/retry-result.json. Viewports: 360×640, 390×844, 768×1024 e 1440×900.
+- Página inicial offline: ${offline.filter((r) => r.ok).length}/${offline.length} resoluções aprovadas após instalação do service worker.
+- Integração contínua limpa no Linux: todos os testes de navegador, build, tipos, lint, testes unitários e auditoria passaram no [GitHub Actions](https://github.com/jhf1009-crypto/BARBEARIAEXEMPLOGERAL/actions/runs/39656079690).
 - Testes unitários de horários: 4 aprovados.
 - Auditoria de dependências (pnpm audit): ${JSON.stringify(audit.metadata.vulnerabilities)}.
 - Evidências locais: output/playwright, output/lighthouse-final.report.html, output/lighthouse-final.report.json, output/e2e-results.json e playwright-report.

@@ -79,13 +79,16 @@ export function PublicInteractions() {
       }
     };
     document.addEventListener('click', click);
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+    const offlineTimer = window.setTimeout(() => {
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }, 5000);
     return () => {
       window.removeEventListener('scroll', scroll);
       document.removeEventListener('click', click);
       document.removeEventListener('pointermove', pointer);
       cancelAnimationFrame(pointerFrame);
       observer.disconnect();
+      window.clearTimeout(offlineTimer);
     };
   }, []);
   return (
