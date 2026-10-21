@@ -723,6 +723,7 @@ export default function BookingSheet({
     <dialog
       ref={dialog}
       className="booking-dialog"
+      aria-label="Agendar horário"
       onCancel={onClose}
       onClick={(e) => {
         if (e.target === dialog.current) onClose();

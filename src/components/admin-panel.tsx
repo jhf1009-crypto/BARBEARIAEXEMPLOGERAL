@@ -1340,7 +1340,12 @@ export default function AdminPanel({ user }: { user: User }) {
           </select>
         </label>
       </nav>
-      <dialog ref={modal} className="admin-dialog" onCancel={() => setEditor(null)}>
+      <dialog
+        ref={modal}
+        className="admin-dialog"
+        aria-label="Gerenciar registro"
+        onCancel={() => setEditor(null)}
+      >
         <div className="card-heading">
           <h2>
             {module === 'settings'

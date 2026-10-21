@@ -98,7 +98,11 @@ export function PublicInteractions() {
           onClose={() => setBooking(null)}
         />
       )}
-      <dialog ref={gallery} className="lightbox">
+      <dialog
+        ref={gallery}
+        className="lightbox"
+        aria-label={photo.caption || 'Visualizar fotografia'}
+      >
         <button
           className="icon-button lightbox-close"
           onClick={() => gallery.current?.close()}
