@@ -8,7 +8,7 @@ Requisitos: Node.js 22.12+ (validado com 24), pnpm 11 ou npm compatível, disco 
 
 ```sh
 pnpm install
-pnpm setup
+pnpm run setup
 pnpm dev
 ```
 
@@ -23,7 +23,8 @@ Se o banco já foi preparado, use `pnpm dev` diretamente. Para instalar com npm,
 | `pnpm dev`        | Servidor de desenvolvimento, somente loopback |
 | `pnpm build`      | Gera Prisma e compila Next com Webpack        |
 | `pnpm start`      | Servidor de produção                          |
-| `pnpm db:push`    | Sincroniza schema no ambiente local           |
+| `pnpm db:migrate` | Aplica as migrations versionadas              |
+| `pnpm db:push`    | Sincroniza schema em banco local descartável  |
 | `pnpm db:seed`    | Preenche banco vazio                          |
 | `pnpm demo:reset` | **Apaga os dados** e recarrega o seed         |
 | `pnpm typecheck`  | TypeScript estrito                            |
@@ -85,7 +86,7 @@ O seed é específico da barbearia inicial. Ao trocar de marca em site.config.ts
 ## Produção em VPS
 
 1. Instale Node, copie o código e configure `.env` com origem HTTPS e cookies seguros.
-2. `pnpm install --frozen-lockfile`, `pnpm exec prisma generate`, `pnpm db:push` no primeiro provisionamento e `pnpm build`.
+2. `pnpm install --frozen-lockfile`, `pnpm exec prisma generate`, `pnpm db:migrate` e `pnpm build`.
 3. Execute Next atrás de Nginx/Caddy com TLS. Limite corpo a 6 MB e sobrescreva `x-real-ip` com o IP remoto confiável. Mantenha o processo vinculado a loopback.
 4. Persista `prisma/dev.db` e `var/uploads`. Faça backups consistentes do SQLite e dos arquivos. Uma instância para SQLite; use PostgreSQL para escalar.
 5. Rode o seed apenas em banco inicial e altere todas as senhas. Em produção evolua schema com migrations revisadas; não use reset.
@@ -106,4 +107,4 @@ Para migrar o banco:
 
 Inicie o servidor antes do Playwright. Os testes usam Chrome instalado; alternativamente instale Chromium com Playwright e ajuste o canal. Os testes E2E criam/cancelam dados e devem usar banco descartável. As evidências locais ficam em `output/playwright/`, `playwright-report/` e `test-results/`, ignoradas pelo Git.
 
-Veja [docs/VALIDATION.md](docs/VALIDATION.md) para resultados efetivamente executados; [SECURITY.md](SECURITY.md) para controles e implantação; [docs/PHOTO-SOURCES.json](docs/PHOTO-SOURCES.json) para fotos e licenças; [docs/DESIGN.md](docs/DESIGN.md) para as decisões visuais e [docs/SKILLS.md](docs/SKILLS.md) para skills e limitações de pesquisa.
+Veja [docs/REPORT.md](docs/REPORT.md) para resultados efetivamente executados; [SECURITY.md](SECURITY.md) para controles e implantação; [docs/PHOTO-SOURCES.json](docs/PHOTO-SOURCES.json) para fotos e licenças; [docs/DESIGN.md](docs/DESIGN.md) para as decisões visuais e [docs/SKILLS.md](docs/SKILLS.md) para skills e limitações de pesquisa.

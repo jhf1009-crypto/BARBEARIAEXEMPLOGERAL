@@ -2,6 +2,7 @@
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { site } from '@/site.config';
 import { ArrowLeft, ArrowRight, LockKeyhole } from 'lucide-react';
 function Login() {
   const router = useRouter(),
@@ -40,8 +41,8 @@ function Login() {
         <ArrowLeft size={18} />
         Voltar ao site
       </Link>
-      <div className="login-brand">G.</div>
-      <p className="eyebrow">GERAL / ÁREA DA EQUIPE</p>
+      <div className="login-brand">{site.monogram}</div>
+      <p className="eyebrow">{site.name} / ÁREA DA EQUIPE</p>
       <h1>
         {reset
           ? 'Uma nova senha.'

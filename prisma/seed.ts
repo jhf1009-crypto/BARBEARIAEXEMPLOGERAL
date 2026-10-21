@@ -126,7 +126,7 @@ async function main() {
     const start = localDate(day, 570 + (i % 3) * 90);
     const end = new Date(start.getTime() + s.duration * 60000);
     const status =
-      offset < 0
+      start < new Date()
         ? ['COMPLETED', 'COMPLETED', 'NO_SHOW', 'CANCELLED'][i % 4]
         : ['CONFIRMED', 'PENDING', 'CONFIRMED'][i % 3];
     const a = await db.appointment.create({

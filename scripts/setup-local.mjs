@@ -1,4 +1,4 @@
-import { existsSync, writeFileSync, readFileSync, appendFileSync } from 'node:fs';
+import { existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { randomBytes } from 'node:crypto';
 if (!existsSync('.env')) {
   const password = randomBytes(18).toString('base64url');
@@ -8,5 +8,19 @@ if (!existsSync('.env')) {
   );
   console.log('Ambiente local criado; senha inicial em .env (não versionado).');
 }
-if (!readFileSync('.env', 'utf8').includes('TOTP_ENCRYPTION_KEY='))
-  appendFileSync('.env', `TOTP_ENCRYPTION_KEY="${randomBytes(32).toString('hex')}"\n`);
+let env = readFileSync('.env', 'utf8');
+for (const [key, size, encoding] of [
+  ['SEED_PASSWORD', 18, 'base64url'],
+  ['TOTP_ENCRYPTION_KEY', 32, 'hex'],
+]) {
+  const line = env.split(/\r?\n/).find((v) => v.startsWith(`${key}=`));
+  const value = line
+    ?.slice(key.length + 1)
+    .trim()
+    .replace(/^["']|["']$/g, '');
+  if (!value) {
+    const replacement = `${key}="${randomBytes(size).toString(encoding)}"`;
+    env = line ? env.replace(line, replacement) : env + replacement + '\n';
+  }
+}
+writeFileSync('.env', env);

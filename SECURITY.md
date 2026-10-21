@@ -37,4 +37,4 @@ O link de um agendamento é uma credencial: qualquer pessoa com o link pode cons
 
 A política CSP dinâmica exige renderização dinâmica das páginas. O service worker não armazena APIs, painel, links de agendamento nem requisições com query string. Cache público contém apenas página inicial, recursos estáticos e fallback offline; confirmar horários sempre exige rede.
 
-Achados e evidências das verificações ficam em docs/VALIDATION.md. Não interpretar a presença destes controles como certificação ou auditoria externa.
+Achados e evidências das verificações ficam em docs/REPORT.md. Não interpretar a presença destes controles como certificação ou auditoria externa.

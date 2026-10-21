@@ -8,13 +8,14 @@
     "start": "next start --hostname 127.0.0.1",
     "db:push": "prisma db push",
     "db:seed": "node --env-file=.env --import tsx prisma/seed.ts",
-    "demo:reset": "prisma db push --force-reset && node --env-file=.env --import tsx prisma/seed.ts",
+    "demo:reset": "prisma migrate reset --force --skip-seed && node --env-file=.env --import tsx prisma/seed.ts",
     "test": "tsx --test tests/*.test.ts",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "setup": "node scripts/setup-local.mjs && prisma generate && prisma db push && node --env-file=.env --import tsx prisma/seed.ts"
+    "setup": "node scripts/setup-local.mjs && prisma generate && prisma migrate deploy && node --env-file=.env --import tsx prisma/seed.ts",
+    "db:migrate": "prisma migrate deploy"
   },
   "dependencies": {
     "next": "latest",
@@ -45,5 +46,9 @@
     "eslint-plugin-react-hooks": "latest",
     "globals": "latest"
   },
-  "type": "module"
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }

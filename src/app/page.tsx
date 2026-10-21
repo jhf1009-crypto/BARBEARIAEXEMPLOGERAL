@@ -20,7 +20,13 @@ export async function generateMetadata() {
   return {
     title: cfg.seoTitle,
     description: cfg.seoDescription,
-    openGraph: { title: cfg.seoTitle, description: cfg.seoDescription },
+    openGraph: {
+      title: cfg.seoTitle,
+      description: cfg.seoDescription,
+      images: [site.hero],
+      locale: 'pt_BR',
+      type: 'website',
+    },
   };
 }
 const money = (n: number) =>
@@ -341,7 +347,9 @@ export default async function Home() {
           </a>
           <Link href="/privacidade">Privacidade</Link>
           <Link href="/termos">Termos</Link>
-          <Link href="/admin">Área da equipe</Link>
+          <Link href="/admin" prefetch={false}>
+            Área da equipe
+          </Link>
         </div>
         <small>
           © {new Date().getFullYear()} {cfg.businessName}. Feito com cuidado.

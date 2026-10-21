@@ -47,6 +47,7 @@ export default function BookingSheet({
   const dragY = useRef(0);
   const swipeX = useRef(0);
   const [services, setServices] = useState<Service[]>([]);
+  const [catalogReady, setCatalogReady] = useState(false);
   const [barbers, setBarbers] = useState<Barber[]>([]);
   const [selected, setSelected] = useState<string[]>(initialService ? [initialService] : []);
   const [barber, setBarber] = useState(initialBarber ?? '');
@@ -84,6 +85,12 @@ export default function BookingSheet({
   const total = picked.reduce((v, s) => v + s.price, 0);
   const duration = picked.reduce((v, s) => v + s.duration, 0);
   useEffect(() => {
+    if (!catalogReady) return;
+    if (selected.some((id) => !services.some((s) => s.id === id)))
+      setSelected((old) => old.filter((id) => services.some((s) => s.id === id)));
+    if (barber && !barbers.some((b) => b.id === barber)) setBarber('');
+  }, [catalogReady, selected, services, barber, barbers]);
+  useEffect(() => {
     if (!standalone) dialog.current?.showModal();
     const old = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -92,6 +99,7 @@ export default function BookingSheet({
       .then((v) => {
         setServices(v.services);
         setBarbers(v.barbers);
+        setCatalogReady(true);
       })
       .catch(() => setError('Não foi possível carregar os serviços. Atualize a página.'));
     try {

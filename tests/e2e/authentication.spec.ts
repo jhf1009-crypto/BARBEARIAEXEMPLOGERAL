@@ -1,8 +1,56 @@
 import { test, expect, db } from './fixtures';
 import { readFileSync } from 'node:fs';
 import * as OTPAuth from 'otpauth';
+import { randomBytes, createHash } from 'node:crypto';
 const password = readFileSync('.env', 'utf8').match(/SEED_PASSWORD="([^"]+)"/)?.[1] ?? '';
 const headers = { Origin: 'http://localhost:3000' };
+test('password recovery does not expose accounts and tokens are single-use', async ({
+  request,
+}) => {
+  if (!process.env.SMTP_HOST) {
+    const known = await request.post('/api/auth/forgot', {
+      headers,
+      data: { email: 'admin@example.com' },
+    });
+    const unknown = await request.post('/api/auth/forgot', {
+      headers,
+      data: { email: 'unknown-person@example.com' },
+    });
+    expect(known.status()).toBe(503);
+    expect(unknown.status()).toBe(503);
+    expect(await known.json()).toEqual(await unknown.json());
+  }
+  const original = await db.user.findUniqueOrThrow({ where: { email: 'admin@example.com' } });
+  const email = `reset-${Date.now()}@example.com`;
+  const u = await db.user.create({
+    data: { name: 'QA Reset', email, password: original.password, role: 'MANAGER' },
+  });
+  const token = randomBytes(32).toString('base64url');
+  await db.resetToken.create({
+    data: {
+      id: createHash('sha256').update(token).digest('hex'),
+      userId: u.id,
+      expiresAt: new Date(Date.now() + 600000),
+    },
+  });
+  const replacement = `${password}-new`;
+  expect(
+    (
+      await request.post('/api/auth/reset', { headers, data: { token, password: replacement } })
+    ).ok(),
+  ).toBeTruthy();
+  expect(
+    (
+      await request.post('/api/auth/reset', { headers, data: { token, password: replacement } })
+    ).status(),
+  ).toBe(400);
+  expect(
+    (
+      await request.post('/api/auth/login', { headers, data: { email, password: replacement } })
+    ).ok(),
+  ).toBeTruthy();
+  await db.user.delete({ where: { id: u.id } });
+});
 test('admin two-factor setup stores encrypted secret and requires valid code', async ({
   request,
   playwright,

@@ -67,7 +67,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ act
     }
     if (action === 'forgot') {
       const v = z.object({ email: z.email() }).parse(input);
-      await rateKey(`reset:${hash(v.email)}`, 3, 3600);
+      await rateKey(`reset:${hash(v.email.toLowerCase())}`, 3, 3600);
+      if (!process.env.SMTP_HOST && process.env.NODE_ENV !== 'development')
+        throw new AppError('Canal de e-mail indisponível. Contate o administrador.', 503);
       const user = await db.user.findUnique({ where: { email: v.email.toLowerCase() } });
       if (user) {
         const token = randomBytes(32).toString('base64url');
@@ -88,6 +90,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ act
               to: user.email,
               subject: 'Redefina sua senha',
               text: `Use este link em até 30 minutos: ${link}`,
+            })
+            .catch(() => {
+              console.error('Password reset delivery failed. Check SMTP configuration.');
             });
         } else if (process.env.NODE_ENV === 'development')
           console.info('Password reset (development only):', link);
@@ -108,6 +113,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ act
         const r = await tx.resetToken.findUnique({ where: { id: hashed } });
         if (!r || r.expiresAt < new Date()) throw new AppError('Link expirado. Solicite outro.');
         await tx.resetToken.delete({ where: { id: hashed } });
+        await tx.resetToken.deleteMany({ where: { userId: r.userId } });
         await tx.user.update({
           where: { id: r.userId },
           data: { password, mustChangePassword: false },

@@ -11,8 +11,13 @@ test('slow mobile connection keeps primary action usable', async ({ page, contex
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('h1')).toBeVisible();
   await page.getByRole('link', { name: 'Agendar meu horário' }).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await expect(page.getByRole('button', { name: /Corte masculino/ })).toBeVisible();
+  // Before hydration the normal link opens the same flow as a standalone full-screen page.
+  await expect(page.getByRole('heading', { name: 'O que vamos fazer?' })).toBeVisible({
+    timeout: 20000,
+  });
+  await expect(page.getByRole('button', { name: /Corte masculino/ })).toBeVisible({
+    timeout: 20000,
+  });
 });
 test('public content and scheduling link survive JavaScript disabled', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });

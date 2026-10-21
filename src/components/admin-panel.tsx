@@ -2,6 +2,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { site } from '@/site.config';
+import { schemas } from '@/lib/validation';
 import { ScheduleEditor, BarberSelect } from './admin-fields';
 import { DashboardExtras } from './dashboard-extras';
 import {
@@ -388,6 +390,14 @@ export default function AdminPanel({ user }: { user: User }) {
       data.barberId = data.barberId || null;
     }
     if (module === 'blocks') data.barberId = data.barberId || null;
+    const schema = schemas[module as keyof typeof schemas];
+    if (schema) {
+      const result = schema.safeParse(data);
+      if (!result.success) {
+        setError(result.error.issues.map((v) => v.message).join(' · '));
+        return;
+      }
+    }
     await mutate(editor?.id ? 'update' : 'create', text(editor?.id) || undefined, data);
   }
   function openCreate() {
@@ -472,9 +482,10 @@ export default function AdminPanel({ user }: { user: User }) {
     <div className={`admin-shell ${dark ? '' : 'admin-light'}`}>
       <aside className="admin-sidebar">
         <Link href="/" className="brand">
-          G.
+          {site.monogram}
           <span>
-            GERAL<small>GESTÃO DA BARBEARIA</small>
+            {site.name}
+            <small>GESTÃO DA BARBEARIA</small>
           </span>
         </Link>
         <p className="nav-label">SEU NEGÓCIO</p>
