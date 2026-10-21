@@ -1,0 +1,48 @@
+{
+  "name": "barbearia-exemplo-geral",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack --hostname 127.0.0.1",
+    "build": "prisma generate && next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "demo:reset": "prisma db push --force-reset && tsx prisma/seed.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "setup": "node scripts/setup-local.mjs && prisma generate && prisma db push && tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "@prisma/client": "6.19.0",
+    "bcryptjs": "latest",
+    "zod": "latest",
+    "lucide-react": "latest",
+    "sharp": "latest",
+    "otpauth": "latest",
+    "nodemailer": "latest"
+  },
+  "devDependencies": {
+    "prisma": "6.19.0",
+    "typescript": "^6.0.0",
+    "tsx": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/nodemailer": "latest",
+    "@playwright/test": "latest",
+    "eslint": "^10.13.0",
+    "prettier": "latest",
+    "lighthouse": "latest",
+    "@eslint/js": "latest",
+    "typescript-eslint": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "globals": "latest"
+  }
+}

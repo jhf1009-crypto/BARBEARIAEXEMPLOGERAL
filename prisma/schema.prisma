@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../src/generated/prisma"
+}
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+model User {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  password String
+  role String @default("BARBER")
+  barberId String? @unique
+  mustChangePassword Boolean @default(true)
+  totpSecret String?
+  sessions Session[]
+  resets ResetToken[]
+}
+model Session {
+  id String @id
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  agent String
+}
+model ResetToken {
+  id String @id
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+}
+model Service {
+  id String @id @default(cuid())
+  name String
+  description String @default("")
+  price Int
+  duration Int
+  image String @default("/images/service-1.webp")
+  category String @default("Cabelo")
+  active Boolean @default(true)
+  order Int @default(0)
+  barberIds String @default("[]")
+}
+model Barber {
+  id String @id @default(cuid())
+  name String
+  bio String @default("")
+  specialty String @default("Corte e barba")
+  image String @default("/images/barber-1.webp")
+  commission Int @default(40)
+  active Boolean @default(true)
+  schedule String @default("{}")
+}
+model Customer {
+  id String @id @default(cuid())
+  name String
+  phone String @unique
+  notes String @default("")
+  tags String @default("")
+  createdAt DateTime @default(now())
+  appointments Appointment[]
+}
+model Appointment {
+  id String @id @default(cuid())
+  tokenHash String @unique
+  tokenExpiresAt DateTime
+  customerId String
+  customer Customer @relation(fields: [customerId], references: [id])
+  barberId String
+  serviceIds String
+  serviceNames String
+  startsAt DateTime
+  endsAt DateTime
+  duration Int
+  total Int
+  status String @default("CONFIRMED")
+  notes String @default("")
+  internalNotes String @default("")
+  payment String @default("PIX")
+  createdAt DateTime @default(now())
+  reservations Reservation[]
+  @@index([barberId, startsAt])
+}
+model Reservation {
+  id String @id @default(cuid())
+  barberId String
+  minute DateTime
+  appointmentId String
+  appointment Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  @@unique([barberId, minute])
+}
+model Block {
+  id String @id @default(cuid())
+  name String
+  barberId String?
+  startsAt DateTime
+  endsAt DateTime
+}
+model Gallery {
+  id String @id @default(cuid())
+  caption String
+  image String
+  active Boolean @default(true)
+  order Int @default(0)
+}
+model Review {
+  id String @id @default(cuid())
+  name String
+  text String
+  rating Int @default(5)
+  active Boolean @default(true)
+}
+model Setting {
+  key String @id
+  value String
+}
+model Audit {
+  id String @id @default(cuid())
+  userId String
+  action String
+  target String
+  createdAt DateTime @default(now())
+}
+model RateLimit {
+  key String @id
+  count Int @default(1)
+  expiresAt DateTime
+}
