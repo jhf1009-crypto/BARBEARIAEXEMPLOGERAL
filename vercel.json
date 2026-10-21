@@ -1,0 +1,8 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "pnpm run build:vercel",
+  "env": {
+    "VERCEL_SQLITE_PREVIEW": "true",
+    "SESSION_COOKIE_SECURE": "true"
+  }
+}

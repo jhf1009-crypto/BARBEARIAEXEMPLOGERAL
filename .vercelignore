@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.git/
+.env
+.env.*
+output/
+var/
+test-results/
+playwright-report/
+prisma/*.db*
+src/generated/
+*.tsbuildinfo

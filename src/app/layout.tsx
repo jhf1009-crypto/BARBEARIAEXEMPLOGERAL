@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { site } from '@/site.config';
 import './globals.css';
+import { appUrl } from '@/lib/app-url';
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(appUrl),
   title: site.seo.title,
   description: site.seo.description,
   alternates: { canonical: '/' },

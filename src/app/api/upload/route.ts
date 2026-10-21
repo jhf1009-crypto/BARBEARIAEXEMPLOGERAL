@@ -6,13 +6,12 @@ import sharp from 'sharp';
 import { requireUser, audit } from '@/lib/auth';
 import { AppError } from '@/lib/booking';
 import { fail, rate } from '@/lib/http';
+import { isTrustedOrigin } from '@/lib/app-url';
+import { uploadDirectory } from '@/lib/storage';
 export async function POST(req: NextRequest) {
   try {
     const u = await requireUser(['ADMIN', 'MANAGER']);
-    if (
-      req.headers.get('origin') !== new URL(process.env.APP_URL ?? 'http://localhost:3000').origin
-    )
-      throw new AppError('Origem inválida.', 403);
+    if (!isTrustedOrigin(req.headers.get('origin'))) throw new AppError('Origem inválida.', 403);
     await rate(req, 'upload', 30);
     if (Number(req.headers.get('content-length') ?? 0) > 6 * 1024 * 1024)
       throw new AppError('Limite de 5 MB.');
@@ -35,8 +34,8 @@ export async function POST(req: NextRequest) {
       .webp({ quality: 82 })
       .toBuffer();
     const name = `${randomUUID()}.webp`;
-    await mkdir(path.join(process.cwd(), 'var/uploads'), { recursive: true });
-    await writeFile(path.join(process.cwd(), 'var/uploads', name), out);
+    await mkdir(uploadDirectory, { recursive: true });
+    await writeFile(path.join(uploadDirectory, name), out);
     await audit(u.id, 'UPLOAD', name);
     return NextResponse.json({ url: `/uploads/${name}` });
   } catch (e) {

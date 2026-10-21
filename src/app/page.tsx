@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { appUrl } from '@/lib/app-url';
 import {
   ArrowUpRight,
   ArrowRight,
@@ -43,9 +44,9 @@ export default async function Home() {
     '@context': 'https://schema.org',
     '@type': 'HairSalon',
     name: cfg.businessName,
-    url: process.env.APP_URL ?? 'http://localhost:3000',
+    url: appUrl,
     telephone: `+${cfg.phone}`,
-    image: `${process.env.APP_URL ?? 'http://localhost:3000'}${site.hero}`,
+    image: `${appUrl}${site.hero}`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: site.street,

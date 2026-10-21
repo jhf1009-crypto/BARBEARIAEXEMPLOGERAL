@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import { db } from './db';
 import { AppError, hash } from './booking';
+import { isTrustedOrigin } from './app-url';
 export function fail(e: unknown) {
   if (e instanceof ZodError)
     return NextResponse.json(
@@ -16,9 +17,8 @@ export function fail(e: unknown) {
   );
 }
 export function sameOrigin(req: NextRequest) {
-  const expected = new URL(process.env.APP_URL ?? 'http://localhost:3000').origin;
   const origin = req.headers.get('origin');
-  if (origin !== expected) throw new AppError('Origem da solicitação inválida.', 403);
+  if (!isTrustedOrigin(origin)) throw new AppError('Origem da solicitação inválida.', 403);
   if (!req.headers.get('content-type')?.includes('application/json'))
     throw new AppError('Formato inválido.', 415);
 }

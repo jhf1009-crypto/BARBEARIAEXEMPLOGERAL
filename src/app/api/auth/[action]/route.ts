@@ -10,6 +10,7 @@ import { encryptSecret, decryptSecret } from '@/lib/secrets';
 import { requireUser, newSession, audit } from '@/lib/auth';
 import { AppError, hash } from '@/lib/booking';
 import { body, fail, rate, rateKey, sameOrigin } from '@/lib/http';
+import { appUrl } from '@/lib/app-url';
 export async function POST(req: NextRequest, { params }: { params: Promise<{ action: string }> }) {
   try {
     sameOrigin(req);
@@ -76,7 +77,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ act
         await db.resetToken.create({
           data: { id: hash(token), userId: user.id, expiresAt: new Date(Date.now() + 1800000) },
         });
-        const link = `${process.env.APP_URL}/admin/login?reset=${token}`;
+        const link = `${appUrl}/admin/login?reset=${token}`;
         if (process.env.SMTP_HOST) {
           await nodemailer
             .createTransport({

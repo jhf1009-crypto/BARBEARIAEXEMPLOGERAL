@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { appUrl } from '@/lib/app-url';
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin', '/api/', '/agendamento/', '/agendar'],
     },
-    sitemap: `${process.env.APP_URL ?? 'http://localhost:3000'}/sitemap.xml`,
+    sitemap: `${appUrl}/sitemap.xml`,
   };
 }
