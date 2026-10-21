@@ -5,6 +5,7 @@ node_modules/
 !.env.example
 prisma/*.db*
 public/uploads/
+var/
 output/
 test-results/
 playwright-report/

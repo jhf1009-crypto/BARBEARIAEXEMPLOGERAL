@@ -10,6 +10,7 @@ O link de um agendamento é uma credencial: qualquer pessoa com o link pode cons
 
 - Senhas bcrypt custo 12; senha inicial aleatória em .env, troca obrigatória.
 - Sessões opacas de 256 bits, hash no banco, expiração de 12h; cookies httpOnly, SameSite=Lax e Secure configurável para HTTPS.
+- Segredos TOTP protegidos por AES-256-GCM com chave independente em TOTP_ENCRYPTION_KEY; guarde a chave separadamente do backup do banco.
 - Autorização por papel em cada API. Barbeiro limitado à própria agenda; gerente não gerencia usuários, configurações ou auditoria.
 - Zod em entradas; ORM parametrizado. Saída React escapada. JSON-LD serializado e `<` escapado.
 - Mutações JSON exigem Origin idêntico a APP_URL e Content-Type application/json. Upload verifica Origin, usuário e papel.
