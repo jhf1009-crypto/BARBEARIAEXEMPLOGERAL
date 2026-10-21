@@ -1,0 +1,9 @@
+node_modules
+.next
+src/generated
+output
+test-results
+playwright-report
+pnpm-lock.yaml
+public/images
+public/fonts

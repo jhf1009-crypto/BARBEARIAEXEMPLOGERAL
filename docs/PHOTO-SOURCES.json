@@ -1,0 +1,142 @@
+[
+  {
+    "file": "hero",
+    "source": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Barbeiro trabalhando em um corte masculino",
+    "bytes": 152627
+  },
+  {
+    "file": "space",
+    "source": "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Interior de barbearia com cadeiras e espelhos",
+    "bytes": 169700
+  },
+  {
+    "file": "service-1",
+    "source": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Corte masculino com máquina",
+    "bytes": 243739
+  },
+  {
+    "file": "service-2",
+    "source": "https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Acabamento de corte masculino",
+    "bytes": 108951
+  },
+  {
+    "file": "service-4",
+    "source": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Ferramentas de barbearia",
+    "bytes": 109731
+  },
+  {
+    "file": "barber-1",
+    "source": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Retrato masculino",
+    "bytes": 221612
+  },
+  {
+    "file": "barber-2",
+    "source": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Retrato masculino",
+    "bytes": 283047
+  },
+  {
+    "file": "barber-3",
+    "source": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=900&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Retrato masculino",
+    "bytes": 93814
+  },
+  {
+    "file": "service-5",
+    "source": "https://images.unsplash.com/photo-1520338661084-680395057c93?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/barber-cutting-mans-hair-idzUojjazCg",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 48570
+  },
+  {
+    "file": "service-6",
+    "source": "https://images.unsplash.com/photo-1653875700322-cf550d9a52ff?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/a-man-getting-his-hair-cut-at-a-barber-shop-XqVhINFvXK0",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 130895
+  },
+  {
+    "file": "service-7",
+    "source": "https://images.unsplash.com/photo-1553521041-d168abd31de3?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/shallow-focus-photo-of-man-holding-scissors-taZSJ6xmt48",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 83266
+  },
+  {
+    "file": "service-8",
+    "source": "https://images.unsplash.com/photo-1605497788245-3c047575d789?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/man-in-black-long-sleeve-shirt-cutting-hair-of-man-in-black-shirt-7Fxxt8Of_mc",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 230947
+  },
+  {
+    "file": "service-9",
+    "source": "https://images.unsplash.com/photo-1639511177364-0866c0da16fa?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/a-man-with-a-beard-is-getting-his-hair-cut-cmoQYMqGgoI",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 204556
+  },
+  {
+    "file": "service-3",
+    "source": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Barbeiro trabalhando em um corte masculino",
+    "bytes": 152627
+  },
+  {
+    "file": "gallery-1",
+    "source": "https://images.unsplash.com/photo-1520338661084-680395057c93?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/barber-cutting-mans-hair-idzUojjazCg",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 48570
+  },
+  {
+    "file": "gallery-2",
+    "source": "https://images.unsplash.com/photo-1653875700322-cf550d9a52ff?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/a-man-getting-his-hair-cut-at-a-barber-shop-XqVhINFvXK0",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 130895
+  },
+  {
+    "file": "gallery-3",
+    "source": "https://images.unsplash.com/photo-1553521041-d168abd31de3?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/shallow-focus-photo-of-man-holding-scissors-taZSJ6xmt48",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 83266
+  },
+  {
+    "file": "gallery-4",
+    "source": "https://images.unsplash.com/photo-1605497788245-3c047575d789?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/man-in-black-long-sleeve-shirt-cutting-hair-of-man-in-black-shirt-7Fxxt8Of_mc",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 230947
+  },
+  {
+    "file": "gallery-5",
+    "source": "https://images.unsplash.com/photo-1639511177364-0866c0da16fa?auto=format&fit=crop&w=900&q=85",
+    "photoPage": "https://unsplash.com/photos/a-man-with-a-beard-is-getting-his-hair-cut-cmoQYMqGgoI",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "bytes": 204556
+  },
+  {
+    "file": "gallery-6",
+    "source": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=85",
+    "license": "Unsplash License — https://unsplash.com/license",
+    "alt": "Barbeiro trabalhando em um corte masculino",
+    "bytes": 152627
+  }
+]
