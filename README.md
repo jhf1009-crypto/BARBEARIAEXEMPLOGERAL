@@ -93,6 +93,8 @@ O seed é específico da barbearia inicial. Ao trocar de marca em site.config.ts
 
 ## Vercel e PostgreSQL
 
+Para visualizar este template, o projeto **marcos-0447/barbeariaexemplogeral** usa o modo de prévia descrito em [docs/VERCEL-PREVIEW.md](docs/VERCEL-PREVIEW.md). O arquivo `vercel.json` fixa Next.js e o build com seed; o domínio é https://barbeariaexemplogeral.vercel.app. Essa configuração permite visualizar a interface, com dados temporários por instância, sem enviar o banco local.
+
 O SQLite local e uploads no filesystem **não persistem** adequadamente em funções efêmeras. Antes de usar Vercel, migre para PostgreSQL e um armazenamento de objetos. Este repositório não declara um deploy serverless pronto sem essas adaptações.
 
 Para migrar o banco:

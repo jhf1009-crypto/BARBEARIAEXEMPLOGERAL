@@ -2,6 +2,10 @@ import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
+// vercel.json env values apply at runtime; make the build mode explicit as well.
+if (process.env.VERCEL === '1' && process.env.VERCEL_SQLITE_PREVIEW !== 'false')
+  process.env.VERCEL_SQLITE_PREVIEW = 'true';
+
 function run(args, env = process.env, quiet = false) {
   const result = spawnSync(process.execPath, args, {
     env,
