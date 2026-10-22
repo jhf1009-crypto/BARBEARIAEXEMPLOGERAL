@@ -109,9 +109,6 @@ export default async function Home() {
             <div className="photo-shade" />
           </div>
           <div className="hero-content wrap">
-            <p className="eyebrow hero-enter">
-              SALVADOR · PITUBA <span className="short-line" /> ESTILO DE VERDADE
-            </p>
             <h1 className="hero-enter">{cfg.headline}</h1>
             <p className="hero-sub hero-enter">{cfg.description}</p>
             <a href="/agendar" data-book className="button hero-cta hero-enter">
@@ -143,7 +140,6 @@ export default async function Home() {
         <section id="servicos" className="section wrap">
           <div className="section-heading reveal">
             <div>
-              <p className="eyebrow">01 / DO SEU JEITO</p>
               <h2>O cuidado que você merece.</h2>
             </div>
             <p>
@@ -187,7 +183,6 @@ export default async function Home() {
           <div className="wrap">
             <div className="section-heading reveal">
               <div>
-                <p className="eyebrow">02 / MÃOS QUE ENTENDEM</p>
                 <h2>Seu estilo está em boas mãos.</h2>
               </div>
               <p>
@@ -225,7 +220,6 @@ export default async function Home() {
         <section id="trabalhos" className="section wrap">
           <div className="section-heading reveal">
             <div>
-              <p className="eyebrow">03 / O RESULTADO FALA</p>
               <h2>Detalhes que fazem o estilo.</h2>
             </div>
             <span className="muted">Deslize para explorar →</span>
@@ -250,7 +244,6 @@ export default async function Home() {
         </section>
         <section className="reviews-section section">
           <div className="wrap">
-            <p className="eyebrow">A MELHOR INDICAÇÃO É DE QUEM JÁ SENTOU NA CADEIRA.</p>
             <div className="review-grid">
               {reviews.map((r) => (
                 <figure key={r.id} className="review reveal">
@@ -278,7 +271,6 @@ export default async function Home() {
             />
           </div>
           <div className="location-copy reveal">
-            <p className="eyebrow">04 / CHEGA MAIS</p>
             <h2>
               Sua pausa.
               <br />
@@ -324,7 +316,6 @@ export default async function Home() {
           </div>
         </section>
         <section className="closing wrap reveal">
-          <p className="eyebrow">RESERVE UM TEMPO PARA VOCÊ.</p>
           <h2>
             Seu próximo corte
             <br />
